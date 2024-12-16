@@ -1,0 +1,8 @@
+services:
+  code:
+    build:
+      context: .
+    volumes:
+      - ./code/:/home/ubuntu/code/
+    ports:
+      - 8585:8585
