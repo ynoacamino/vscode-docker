@@ -36,17 +36,11 @@ RUN apt-get install -y \
     gnupg \
     && rm -rf /var/lib/apt/lists/*
 
+# x64 or arm64
+ARG ARCH=arm64
+
 # Declarar la variable de arquitectura
-RUN ARCH=$(uname -m) && \
-    if [ "$ARCH" = "x86_64" ]; then \
-        DEB_URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"; \
-    elif [ "$ARCH" = "aarch64" ]; then \
-        DEB_URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64"; \
-    else \
-        echo "Arquitectura desconocida"; \
-        exit 1; \
-    fi && \
-    wget -O /tmp/code.deb $DEB_URL
+RUN wget -O /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-${ARCH}"
 
 # Instalar el paquete .deb descargado
 RUN dpkg -i /tmp/code.deb && apt-get install -f
