@@ -38,9 +38,10 @@ RUN apt-get install -y \
 
 # x64 or arm64
 ARG ARCH=arm64
+ARG CODE_VERSION=1.96.0
 
 # Declarar la variable de arquitectura
-RUN wget -O /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-${ARCH}"
+RUN wget -O /tmp/code.deb "https://update.code.visualstudio.com/${CODE_VERSION}/linux-deb-${ARCH}/stable"
 
 # Instalar el paquete .deb descargado
 RUN dpkg -i /tmp/code.deb && apt-get install -f
